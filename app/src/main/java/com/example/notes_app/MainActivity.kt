@@ -6,7 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.widget.Button
 import android.widget.ImageView
@@ -21,8 +24,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.net.URI
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
@@ -41,25 +47,30 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
     private var userEmail:TextView?=null;
 
-    private var userProfile:ImageView?=null;
+    private lateinit var userProfile:CircleImageView;
+
 
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         setContentView(R.layout.activity_main)
+
+
         val toolbar: Toolbar= findViewById<Toolbar>(R.id.toolbar);
+
+        val profileFab=findViewById<FloatingActionButton>(R.id.changeProfileImage)
+
         setSupportActionBar(toolbar)
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         //setting up profile
-            userName=findViewById(R.id.UserName);
+            userName=findViewById(R.id.UserName)
             userProfile=findViewById(R.id.userProfile)
             userEmail=findViewById(R.id.email);
             val edituser= findViewById<Button>(R.id.edit_user);
             edituser.setOnClickListener{
                 val intent = Intent(this,ChangeUser::class.java)
+
 
                 val name:TextView=findViewById(R.id.UserName)
                 val email:TextView=findViewById(R.id.email)
@@ -68,6 +79,14 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 ActivityCompat.startActivityForResult(this,intent,1,null);
             }
 
+            profileFab.setOnClickListener{
+                val gallery=Intent()
+                gallery.setType("image/*")
+                gallery.setAction(Intent.ACTION_GET_CONTENT)
+
+               ActivityCompat.startActivityForResult(this,Intent.createChooser(gallery,"Select Image"),4,null)
+
+            }
         onloaddata()
         //--------------
         //setting up Notes Addition
@@ -107,7 +126,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
 
     }
-
+    var imageUri:Uri?=null
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -161,6 +180,22 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                     database.getNoteDao().updateNote(mNotesList[position])
                 }
                 mRecyclerView!!.adapter!!.notifyDataSetChanged();
+            }
+        }
+        else if(requestCode==4)
+        {
+            println("HERE IMAGE")
+            if(resultCode == RESULT_OK)
+            {
+                imageUri=data?.getData()
+
+                try {
+                    val bitmap:Bitmap=MediaStore.Images.Media.getBitmap(contentResolver,imageUri)
+                    userProfile?.setImageBitmap(bitmap)
+                }
+                catch (e: IOException){
+                    e.printStackTrace()
+                }
             }
         }
     }
