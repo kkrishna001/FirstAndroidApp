@@ -1,18 +1,16 @@
 package com.example.notes_app
 
 import android.annotation.SuppressLint
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
-@SuppressLint("SimpleDateFormat")
-class Notes:Serializable {
-    var title:String="title"
-    var desc:String="description"
-    lateinit var time:String;
-    init {
-        val sdf= SimpleDateFormat("dd/M hh:mm:ss")
-        val currentDate=sdf.format(Date());
-        time=currentDate;
-    }
-}
+
+@Entity(tableName = "notes_container") data class Notes(
+    @PrimaryKey(autoGenerate = true) val id:Int,
+    @ColumnInfo(name = "title") var title:String,
+    @ColumnInfo(name = "desc") var desc:String,
+    @ColumnInfo(name = "time") val time:String) :Serializable

@@ -2,7 +2,10 @@ package com.example.notes_app
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.Menu
 import android.widget.Button
@@ -12,12 +15,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
+
+
+
+    lateinit var database: NoteDatabase
+
     private var mNotesList = ArrayList<Notes>()
 
     private var mRecyclerView: RecyclerView? = null
@@ -33,6 +43,14 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        database= NoteDatabase.getDatabase(this)
+        val list=database.getNoteDao().getallNotes()
+        list.forEach{
+            mNotesList.add(it)
+        }
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar= findViewById<Toolbar>(R.id.toolbar);
         setSupportActionBar(toolbar)
@@ -51,17 +69,29 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 intent.putExtra("EMAIL_KEY",email.text)
                 ActivityCompat.startActivityForResult(this,intent,1,null);
             }
+
+        onloaddata()
         //--------------
         //setting up Notes Addition
         fab.setOnClickListener {
            val intent=Intent(this,NotesHandler::class.java)
-//            startActivityForResult(intent,2);
+
             ActivityCompat.startActivityForResult(this,intent,2,null);
         }
         mRecyclerView = findViewById(R.id.recyclerview)
         mAdapter = WordListAdapter(this,mNotesList,this)
         mRecyclerView!!.adapter = mAdapter
         mRecyclerView!!.layoutManager = LinearLayoutManager(this)
+
+    }
+    private fun onloaddata(){
+        val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val savedname:String?=sharedPreferences.getString("NAME_KEY1",null)
+        val savedEmail:String?=sharedPreferences.getString("EMAIL_KEY1",null)
+
+        userName?.text=savedname
+        userEmail?.text=savedEmail
+
 
     }
     @SuppressLint("NotifyDataSetChanged")
@@ -74,6 +104,12 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 val name: String? = data?.getStringExtra("NAME_KEY");
                 val email:String?=data?.getStringExtra("EMAIL_KEY");
 
+                val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor =sharedPreferences.edit()
+                editor.apply {
+                    putString("NAME_KEY1",name);
+                    putString("EMAIL_KEY1",email)
+                }.apply()
                 userName?.text = name;
                 userEmail?.text=email;
             }
@@ -86,6 +122,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 val wordListSize = mNotesList.size
                 // Add a new word to the wordList.
                 mNotesList.add(note)
+                database.getNoteDao().insertNote(note)
                 // Notify the adapter, that the data has changed.
                 mRecyclerView!!.adapter!!.notifyItemInserted(wordListSize)
                 // Scroll to the bottom.
@@ -98,9 +135,11 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
             {
                 val note:Notes=data?.getSerializableExtra("EDITNOTE_KEY") as Notes
                 val position:Int=data.getIntExtra("EDITPOS_KEY",0) as Int
-                println(position)
+
                 mNotesList[position].title=note.title
                 mNotesList[position].desc=note.desc
+
+                database.getNoteDao().updateNote(mNotesList[position])
                 mRecyclerView!!.adapter!!.notifyDataSetChanged();
             }
         }
@@ -118,12 +157,14 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onDeleteClick(position: Int) {
-        mNotesList.removeAt(position);
-        mRecyclerView!!.adapter!!.notifyDataSetChanged();
+
+        database.getNoteDao().deleteNote(mNotesList[position])
+        mNotesList.removeAt(position)
+        mRecyclerView!!.adapter!!.notifyDataSetChanged()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        return super.onCreateOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu)
     }
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
