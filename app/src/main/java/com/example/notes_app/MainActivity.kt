@@ -17,9 +17,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
@@ -45,11 +48,6 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         super.onCreate(savedInstanceState)
 
 
-        database= NoteDatabase.getDatabase(this)
-        val list=database.getNoteDao().getallNotes()
-        list.forEach{
-            mNotesList.add(it)
-        }
 
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar= findViewById<Toolbar>(R.id.toolbar);
@@ -80,9 +78,24 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         }
         mRecyclerView = findViewById(R.id.recyclerview)
         mAdapter = WordListAdapter(this,mNotesList,this)
-        mRecyclerView!!.adapter = mAdapter
-        mRecyclerView!!.layoutManager = LinearLayoutManager(this)
+        mRecyclerView?.adapter = mAdapter
+        mRecyclerView?.layoutManager = LinearLayoutManager(this)
 
+        if(mAdapter!=null)
+        initRecyclerView(this)
+    }
+    private fun initRecyclerView(context: Context)
+    {
+        lifecycleScope.launch(Dispatchers.IO){
+            database= NoteDatabase.getDatabase(context)
+            val tempNotes=ArrayList<Notes>()
+            val list=database.getNoteDao().getallNotes()
+            list.forEach{
+                mNotesList.add(it)
+                tempNotes.add(it);
+            }
+            mAdapter?.updateData(tempNotes)
+        }
     }
     private fun onloaddata(){
         val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
@@ -94,6 +107,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
 
     }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -122,7 +136,11 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 val wordListSize = mNotesList.size
                 // Add a new word to the wordList.
                 mNotesList.add(note)
-                database.getNoteDao().insertNote(note)
+
+                lifecycleScope.launch(Dispatchers.IO){
+                    database.getNoteDao().insertNote(note)
+
+                }
                 // Notify the adapter, that the data has changed.
                 mRecyclerView!!.adapter!!.notifyItemInserted(wordListSize)
                 // Scroll to the bottom.
@@ -139,7 +157,9 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 mNotesList[position].title=note.title
                 mNotesList[position].desc=note.desc
 
-                database.getNoteDao().updateNote(mNotesList[position])
+                lifecycleScope.launch(Dispatchers.IO){
+                    database.getNoteDao().updateNote(mNotesList[position])
+                }
                 mRecyclerView!!.adapter!!.notifyDataSetChanged();
             }
         }
@@ -158,7 +178,10 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
     @SuppressLint("NotifyDataSetChanged")
     override fun onDeleteClick(position: Int) {
 
-        database.getNoteDao().deleteNote(mNotesList[position])
+        val notes=mNotesList[position]
+        lifecycleScope.launch(Dispatchers.IO){
+            database.getNoteDao().deleteNote(notes)
+        }
         mNotesList.removeAt(position)
         mRecyclerView!!.adapter!!.notifyDataSetChanged()
     }

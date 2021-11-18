@@ -64,4 +64,11 @@ class WordListAdapter(context: Context, wordList: ArrayList<Notes>,private var o
     override fun getItemCount(): Int {
         return mNotesList.size
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(mNotesLists: ArrayList<Notes>) {
+        mNotesList.clear()
+        mNotesList.addAll(mNotesLists)
+        notifyDataSetChanged()
+    }
 }
