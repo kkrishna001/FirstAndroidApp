@@ -22,7 +22,7 @@ class WordListAdapter(context: Context, wordList: ArrayList<Notes>,private var o
         fun onNoteClick(position: Int)
         fun onDeleteClick(position:Int)
     }
-    inner class NotesViewHolder(
+    class NotesViewHolder(
         itemView: View,
         adapter: WordListAdapter,
         onNoteListener: OnNoteListener
@@ -66,7 +66,7 @@ class WordListAdapter(context: Context, wordList: ArrayList<Notes>,private var o
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(mNotesLists: ArrayList<Notes>) {
+    fun updateData(mNotesLists:List<Notes>) {
         mNotesList.clear()
         mNotesList.addAll(mNotesLists)
         notifyDataSetChanged()
