@@ -30,9 +30,10 @@
                 <TextView
                     android:id="@+id/title"
                     android:lines="1"
-                    android:layout_width="250dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:maxLength="35"
                     android:text="@string/title_place_holder"
                     android:textColor="@color/black"
                     android:textSize="15sp"
@@ -40,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/dateofnote"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="10dp"
@@ -60,7 +61,7 @@
 
                 <TextView
                     android:id="@+id/desc"
-                    android:layout_width="319dp"
+                    android:layout_width="289dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -71,11 +72,11 @@
 
                 <Button
                     android:id="@+id/delete_note"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
+                    android:gravity="center"
                     android:backgroundTint="@color/lightblue"
                     android:minWidth="48dp"
                     app:icon="@drawable/ic_add_for_notedelete"

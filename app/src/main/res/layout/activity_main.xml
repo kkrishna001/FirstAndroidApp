@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@color/white">
-<!--//#1C4488-->
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -34,9 +34,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        android:contentDescription="TODO"
         app:srcCompat="@drawable/ic_add_for_fab"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

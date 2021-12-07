@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
         setContentView(R.layout.activity_main)
 
-
-
         val toolbar: Toolbar= findViewById<Toolbar>(R.id.toolbar);
 
         val profileFab=findViewById<FloatingActionButton>(R.id.changeProfileImage)
@@ -102,9 +100,6 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         mRecyclerView?.adapter = mAdapter
         mRecyclerView?.layoutManager = LinearLayoutManager(this)
 
-//        if(mAdapter!=null)
-//        initRecyclerView(this)
-
         noteVM = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance((application)))[NoteViewModel::class.java]
 
         noteVM.allnotes.observe(this, Observer { list->
@@ -113,19 +108,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
             }
         })
     }
-//    private fun initRecyclerView(context: Context)
-//    {
-//        lifecycleScope.launch(Dispatchers.IO){
-//            database= NoteDatabase.getDatabase(context)
-//            val tempNotes=ArrayList<Notes>()
-//            val list=database.getNoteDao().getallNotes()
-//            list.forEach{
-//                mNotesList.add(it)
-//                tempNotes.add(it);
-//            }
-//            mAdapter?.updateData(tempNotes)
-//        }
-//    }
+
     private fun onloaddata(){
         val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val savedname:String?=sharedPreferences.getString("NAME_KEY1",null)
@@ -166,9 +149,6 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 // Add a new word to the wordList.
                 mNotesList.add(note)
 
-//                lifecycleScope.launch(Dispatchers.IO){
-//                    database.getNoteDao().insertNote(note)
-//                }
                 noteVM.addNote(note);
                 // Notify the adapter, that the data has changed.
                 mRecyclerView!!.adapter!!.notifyItemInserted(wordListSize)
@@ -186,9 +166,6 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 mNotesList[position].title=note.title
                 mNotesList[position].desc=note.desc
 
-//                lifecycleScope.launch(Dispatchers.IO){
-//                    database.getNoteDao().updateNote(mNotesList[position])
-//                }
                 noteVM.updateNote(mNotesList[position])
                 mRecyclerView!!.adapter!!.notifyDataSetChanged();
             }

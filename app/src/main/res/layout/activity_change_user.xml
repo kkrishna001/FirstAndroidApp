@@ -8,14 +8,14 @@
     android:background="#000000">
     <TextView
         android:id="@+id/titleofactivity"
-        android:layout_width="376dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Change your account details"
+        android:text="@string/change_your_account_details"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="23dp"
+        android:textSize="23sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,19 +23,18 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="411dp"
-        android:layout_height="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
             android:id="@+id/editusernamenow"
             android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:paddingStart="33dp"
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:minHeight="48dp"
-            android:text="username"
+            android:text="@string/Changeusername"
             android:textColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -59,7 +58,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="414dp"
+        android:layout_width="match_parent"
         android:layout_height="198dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
@@ -108,8 +107,8 @@
         app:layout_constraintVertical_bias="0.736" />
 
     <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/submitbutton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,8 +119,8 @@
 
         <TextView
             android:id="@+id/useremailnow"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:paddingStart="32dp"
@@ -134,10 +133,10 @@
         <EditText
             android:id="@+id/useremail"
             android:layout_width="250dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:minHeight="58dp"
-            android:text="email"
+            android:text="@string/emailChange"
             android:textColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>

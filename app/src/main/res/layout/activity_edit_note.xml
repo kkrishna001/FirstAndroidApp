@@ -11,7 +11,7 @@
         android:id="@+id/addnoteshead2"
         android:layout_width="363dp"
         android:layout_height="51dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="184dp"
         android:text="EDIT YOUR NOTE"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -19,27 +19,25 @@
         android:textSize="30dp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="390dp"
-        android:layout_height="363dp"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_margin="10dp"
         android:background="@drawable/linearborder"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/submitnotesbutton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addnoteshead"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/addnoteshead2">
 
         <EditText
             android:id="@+id/notesTitle2"
-            android:layout_width="374dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:ems="10"
             android:gravity="start|top"
@@ -50,8 +48,8 @@
 
         <EditText
             android:id="@+id/notesDes2"
-            android:layout_width="366dp"
-            android:layout_height="269dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:ems="10"
             android:gravity="start|top"
@@ -64,14 +62,19 @@
 
     <Button
         android:id="@+id/submitnotesbutton2"
-        android:layout_width="397dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="96dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="#7C7272"
-        android:text="SAVE"
+        android:text="@string/save"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

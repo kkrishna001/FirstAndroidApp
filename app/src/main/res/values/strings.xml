@@ -14,4 +14,10 @@
     <string name="date_of_note">Date of note</string>
     <string name="username">USERNAME</string>
     <string name="email">EMAIL</string>
+    <string name="save">SAVE</string>
+    <string name="add_your_note">Add your note</string>
+    <string name="add_to_your_note">add to your note</string>
+    <string name="change_your_account_details">Change your account details</string>
+    <string name="Changeusername">username</string>
+    <string name="emailChange">email</string>
 </resources>

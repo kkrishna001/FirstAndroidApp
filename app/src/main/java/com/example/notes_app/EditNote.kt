@@ -19,6 +19,7 @@ class EditNote : AppCompatActivity() {
         tit.setText(note.title)
         des.setText(note.desc)
         val bttn=findViewById<Button>(R.id.submitnotesbutton2)
+
         bttn.setOnClickListener {
             val resultsIntent2= Intent()
 
@@ -29,5 +30,6 @@ class EditNote : AppCompatActivity() {
             setResult(RESULT_OK,resultsIntent2)
             finish()
         }
+
     }
 }
