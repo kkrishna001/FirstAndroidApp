@@ -34,8 +34,11 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
 
+    private val firstRequestCode:Int=1
+    private val secondRequestCode:Int=2
+    private val thirdRequestCode:Int=3
+    private val fourthRequestCode:Int=4
 
-    lateinit var database: NoteDatabase
 
     private var mNotesList = ArrayList<Notes>()
 
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 val email:TextView=findViewById(R.id.email)
                 intent.putExtra("NAME_KEY",name.text)
                 intent.putExtra("EMAIL_KEY",email.text)
-                ActivityCompat.startActivityForResult(this,intent,1,null);
+                ActivityCompat.startActivityForResult(this,intent,firstRequestCode,null);
             }
 
             profileFab.setOnClickListener{
@@ -84,7 +87,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
                 gallery.setType("image/*")
                 gallery.setAction(Intent.ACTION_GET_CONTENT)
 
-               ActivityCompat.startActivityForResult(this,Intent.createChooser(gallery,"Select Image"),4,null)
+               ActivityCompat.startActivityForResult(this,Intent.createChooser(gallery,"Select Image"),fourthRequestCode,null)
 
             }
         onloaddata()
@@ -93,7 +96,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         fab.setOnClickListener {
            val intent=Intent(this,NotesHandler::class.java)
 
-            ActivityCompat.startActivityForResult(this,intent,2,null);
+            ActivityCompat.startActivityForResult(this,intent,secondRequestCode,null);
         }
         mRecyclerView = findViewById(R.id.recyclerview)
         mAdapter = WordListAdapter(this,mNotesList,this)
@@ -194,16 +197,14 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         val intent = Intent(this,EditNote::class.java)
         intent.putExtra("EDITNOTE_KEY",note)
         intent.putExtra("EDITPOS_KEY",position)
-        ActivityCompat.startActivityForResult(this,intent,3,null)
+        ActivityCompat.startActivityForResult(this,intent,thirdRequestCode,null)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onDeleteClick(position: Int) {
 
         val notes=mNotesList[position]
-//        lifecycleScope.launch(Dispatchers.IO){
-//            database.getNoteDao().deleteNote(notes)
-//        }
+
         noteVM.deleteNote(notes)
         mNotesList.removeAt(position)
         mRecyclerView!!.adapter!!.notifyDataSetChanged()
