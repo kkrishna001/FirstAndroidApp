@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import com.example.notes_app.data.room.Notes
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,7 +26,7 @@ class NotesHandler : AppCompatActivity() {
             val sdf= SimpleDateFormat("dd/M hh:mm:ss")
             val currentDate=sdf.format(Date())
 
-            val note=Notes(0,tit.text.toString(),des.text.toString(),currentDate);
+            val note= Notes(0,tit.text.toString(),des.text.toString(),currentDate);
             resultsIntent2.putExtra("NOTE_KEY",note)
             setResult(RESULT_OK,resultsIntent2)
             finish()

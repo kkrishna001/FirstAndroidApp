@@ -1,4 +1,4 @@
-package com.example.notes_app
+package com.example.notes_app.UI.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import com.example.notes_app.R
+import com.example.notes_app.data.room.Notes
 import kotlin.collections.ArrayList
 
 
 
-class WordListAdapter(context: Context, wordList: ArrayList<Notes>,private var onNoteListener:OnNoteListener) :
+class WordListAdapter(context: Context, wordList: ArrayList<Notes>, private var onNoteListener: OnNoteListener) :
     RecyclerView.Adapter<WordListAdapter.NotesViewHolder>() {
     private val mNotesList: ArrayList<Notes> = wordList;
     private val mInflater: LayoutInflater = LayoutInflater.from(context)

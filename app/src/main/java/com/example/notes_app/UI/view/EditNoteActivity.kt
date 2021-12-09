@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.example.notes_app.data.room.Notes
 
 class EditNote : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

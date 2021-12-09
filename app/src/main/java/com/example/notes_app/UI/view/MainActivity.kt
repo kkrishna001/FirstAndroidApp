@@ -1,39 +1,38 @@
-package com.example.notes_app
+package com.example.notes_app.UI.view
 
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notes_app.*
+import com.example.notes_app.UI.adapter.WordListAdapter
+import com.example.notes_app.data.room.Notes
+import com.example.notes_app.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.IOException
-import java.net.URI
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
+class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
 
 
+    //recyclerview
+    //fab button
     private val firstRequestCode:Int=1
     private val secondRequestCode:Int=2
     private val thirdRequestCode:Int=3
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
 
     private lateinit var userProfile:CircleImageView;
 
-    lateinit var noteVM:NoteViewModel
+    lateinit var noteVM: NoteViewModel
 
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,10 +68,10 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         //setting up profile
             userName=findViewById(R.id.UserName)
             userProfile=findViewById(R.id.userProfile)
-            userEmail=findViewById(R.id.email);
-            val edituser= findViewById<Button>(R.id.edit_user);
+            userEmail=findViewById(R.id.email)
+            val edituser= findViewById<Button>(R.id.edit_user)
             edituser.setOnClickListener{
-                val intent = Intent(this,ChangeUser::class.java)
+                val intent = Intent(this, ChangeUser::class.java)
 
 
                 val name:TextView=findViewById(R.id.UserName)
@@ -94,7 +93,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         //--------------
         //setting up Notes Addition
         fab.setOnClickListener {
-           val intent=Intent(this,NotesHandler::class.java)
+           val intent=Intent(this, NotesHandler::class.java)
 
             ActivityCompat.startActivityForResult(this,intent,secondRequestCode,null);
         }
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         {
             if(resultCode==RESULT_OK)
             {
-                val note:Notes= data?.getSerializableExtra("NOTE_KEY") as Notes
+                val note: Notes = data?.getSerializableExtra("NOTE_KEY") as Notes
                 val wordListSize = mNotesList.size
                 // Add a new word to the wordList.
                 mNotesList.add(note)
@@ -163,7 +162,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         {
             if(resultCode== RESULT_OK)
             {
-                val note:Notes=data?.getSerializableExtra("EDITNOTE_KEY") as Notes
+                val note: Notes =data?.getSerializableExtra("EDITNOTE_KEY") as Notes
                 val position:Int=data.getIntExtra("EDITPOS_KEY",0) as Int
 
                 mNotesList[position].title=note.title
@@ -194,7 +193,7 @@ class MainActivity : AppCompatActivity(),WordListAdapter.OnNoteListener{
         val note=mNotesList[position]
         println(note.title)
         println(note.desc)
-        val intent = Intent(this,EditNote::class.java)
+        val intent = Intent(this, EditNote::class.java)
         intent.putExtra("EDITNOTE_KEY",note)
         intent.putExtra("EDITPOS_KEY",position)
         ActivityCompat.startActivityForResult(this,intent,thirdRequestCode,null)

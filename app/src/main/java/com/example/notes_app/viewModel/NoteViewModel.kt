@@ -1,18 +1,21 @@
-package com.example.notes_app
+package com.example.notes_app.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.notes_app.data.room.NoteDatabase
+import com.example.notes_app.NoteRepository
+import com.example.notes_app.data.room.Notes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NoteViewModel(application: Application):AndroidViewModel(application){
     var allnotes:LiveData<List<Notes>>
-    val repository:NoteRepository
+    val repository: NoteRepository
 
     init {
-        val dao=NoteDatabase.getDatabase(application).getNoteDao()
+        val dao= NoteDatabase.getDatabase(application).getNoteDao()
         repository = NoteRepository(dao)
         allnotes=repository.allNotes
     }

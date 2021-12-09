@@ -1,4 +1,4 @@
-package com.example.notes_app
+package com.example.notes_app.data.room
 
 
 import androidx.room.ColumnInfo
