@@ -29,10 +29,15 @@ import java.io.IOException
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
+    
+    
+    // TODO(KK) Resolve comments.
+    // Create fragment.
+    // copy activitys code inside fragment.
+    // create an empty layout for fragment holder// framelayout + Bottom navigation view. (Notes + Search Movie) // Jetpack navigation
+    
 
-
-    //recyclerview
-    //fab button
+    //move these request codes inside companion object and declare them constants. ALL 
     private val firstRequestCode:Int=1
     private val secondRequestCode:Int=2
     private val thirdRequestCode:Int=3
@@ -49,23 +54,24 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
 
     private var userEmail:TextView?=null;
 
-    private lateinit var userProfile:CircleImageView;
+    private lateinit var userProfile:CircleImageView;//create this nullable
 
     lateinit var noteVM: NoteViewModel
 
-    @SuppressLint("CutPasteId")
+    @SuppressLint("CutPasteId")//remove
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
-
-        val toolbar: Toolbar= findViewById<Toolbar>(R.id.toolbar);
-
-        val profileFab=findViewById<FloatingActionButton>(R.id.changeProfileImage)
-
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        //extract this part in a function. --start
         val fab = findViewById<FloatingActionButton>(R.id.fab)
-        //setting up profile
+        fab.setOnClickListener {
+           val intent=Intent(this, NotesHandler::class.java)
+
+            ActivityCompat.startActivityForResult(this,intent,secondRequestCode,null);
+        }
+        //---end
+        //correct indentation
             userName=findViewById(R.id.UserName)
             userProfile=findViewById(R.id.userProfile)
             userEmail=findViewById(R.id.email)
@@ -80,7 +86,9 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
                 intent.putExtra("EMAIL_KEY",email.text)
                 ActivityCompat.startActivityForResult(this,intent,firstRequestCode,null);
             }
-
+        //correct indentation
+        //extract in function --start
+        val profileFab=findViewById<FloatingActionButton>(R.id.changeProfileImage)//remove if not needed
             profileFab.setOnClickListener{
                 val gallery=Intent()
                 gallery.setType("image/*")
@@ -89,38 +97,55 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
                ActivityCompat.startActivityForResult(this,Intent.createChooser(gallery,"Select Image"),fourthRequestCode,null)
 
             }
+        //--end
         onloaddata()
-        //--------------
-        //setting up Notes Addition
-        fab.setOnClickListener {
-           val intent=Intent(this, NotesHandler::class.java)
 
-            ActivityCompat.startActivityForResult(this,intent,secondRequestCode,null);
-        }
+        //extract this in function //setupRecyclerview --start
         mRecyclerView = findViewById(R.id.recyclerview)
         mAdapter = WordListAdapter(this,mNotesList,this)
         mRecyclerView?.adapter = mAdapter
         mRecyclerView?.layoutManager = LinearLayoutManager(this)
-
+        //--end
+        
+        //extract this piece.--start --  initViewModel()
         noteVM = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance((application)))[NoteViewModel::class.java]
-
+        //--end
+        
+        //extract this piece -start --attachObserservere
         noteVM.allnotes.observe(this, Observer { list->
             list?.let{
                 mAdapter?.updateData(it)
             }
         })
+        //--end
     }
 
+    
+    /*
+        1.Create util package.
+        2.Create file SharedPreferennceUtil
+        
+        object SharedPreferennceUtil {
+            fun getSharedPrefInstance() : SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            
+            fun SharedPreferennceUtil.getString(key: String, defaultValue: String?) : String? {
+                return getSharedPrefInstance().getString("NAME_KEY1",null)
+            }
+        }
+    
+    */
     private fun onloaddata(){
-        val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val savedname:String?=sharedPreferences.getString("NAME_KEY1",null)
-        val savedEmail:String?=sharedPreferences.getString("EMAIL_KEY1",null)
+        val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)//extract in constants
+        val savedname:String?=sharedPreferences.getString("NAME_KEY1",null)//extract in constants
+        val savedEmail:String?=sharedPreferences.getString("EMAIL_KEY1",null)//extract in constants
 
         userName?.text=savedname
         userEmail?.text=savedEmail
 
 
     }
+    
+    //move above functions if a class level variable, if not move inside function.
     var imageUri:Uri?=null
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -129,10 +154,10 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
         {
             if(resultCode==RESULT_OK)
             {
-                val name: String? = data?.getStringExtra("NAME_KEY");
-                val email:String?=data?.getStringExtra("EMAIL_KEY");
+                val name: String? = data?.getStringExtra("NAME_KEY");//extract constants
+                val email:String?=data?.getStringExtra("EMAIL_KEY");//extract constants
 
-                val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+                val sharedPreferences:SharedPreferences=getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)//same for sharedprefs.
                 val editor: SharedPreferences.Editor =sharedPreferences.edit()
                 editor.apply {
                     putString("NAME_KEY1",name);
@@ -146,13 +171,13 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
         {
             if(resultCode==RESULT_OK)
             {
-                val note: Notes = data?.getSerializableExtra("NOTE_KEY") as Notes
+                val note: Notes = data?.getSerializableExtra("NOTE_KEY") as Notes//extract constants
                 val wordListSize = mNotesList.size
                 // Add a new word to the wordList.
                 mNotesList.add(note)
 
                 noteVM.addNote(note);
-                // Notify the adapter, that the data has changed.
+                // Notify the adapter, that the data has changed.// use mAdapter instead of asking recyclerviews adapter.
                 mRecyclerView!!.adapter!!.notifyItemInserted(wordListSize)
                 // Scroll to the bottom.
                 mRecyclerView!!.smoothScrollToPosition(wordListSize)
@@ -162,8 +187,8 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
         {
             if(resultCode== RESULT_OK)
             {
-                val note: Notes =data?.getSerializableExtra("EDITNOTE_KEY") as Notes
-                val position:Int=data.getIntExtra("EDITPOS_KEY",0) as Int
+                val note: Notes =data?.getSerializableExtra("EDITNOTE_KEY") as Notes //extract constants.
+                val position:Int=data.getIntExtra("EDITPOS_KEY",0) as Int //extract constants
 
                 mNotesList[position].title=note.title
                 mNotesList[position].desc=note.desc
@@ -172,7 +197,7 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
                 mRecyclerView!!.adapter!!.notifyDataSetChanged();
             }
         }
-        else if(requestCode==4)
+        else if(requestCode==4) //extract constants
         {
 
             if(resultCode == RESULT_OK)
@@ -194,7 +219,7 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
         println(note.title)
         println(note.desc)
         val intent = Intent(this, EditNote::class.java)
-        intent.putExtra("EDITNOTE_KEY",note)
+        intent.putExtra("EDITNOTE_KEY",note) 
         intent.putExtra("EDITPOS_KEY",position)
         ActivityCompat.startActivityForResult(this,intent,thirdRequestCode,null)
     }
@@ -208,6 +233,8 @@ class MainActivity : AppCompatActivity(), WordListAdapter.OnNoteListener {
         mNotesList.removeAt(position)
         mRecyclerView!!.adapter!!.notifyDataSetChanged()
     }
+    
+    //delete commented code.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         return super.onCreateOptionsMenu(menu)
