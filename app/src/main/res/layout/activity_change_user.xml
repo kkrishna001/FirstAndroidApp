@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:minHeight="48dp"
-            android:text="@string/Changeusername"
+            android:text="@string/ChangeUserName"
             android:textColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck" />
 
