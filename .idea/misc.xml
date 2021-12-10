@@ -7,20 +7,29 @@
         <entry key="app/src/main/res/drawable-anydpi/ic_add_for_fab.xml" value="0.32685185185185184" />
         <entry key="app/src/main/res/drawable/backgroundforsearch.xml" value="0.287962962962963" />
         <entry key="app/src/main/res/drawable/button_back.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.294017094017094" />
+        <entry key="app/src/main/res/drawable/linearBorder.xml" value="0.1829059829059829" />
         <entry key="app/src/main/res/drawable/linearborder.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/drawable/profileback2.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/drawable/profilepicturesample1.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/drawable/searchview_background.xml" value="0.23547008547008547" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.25793650793650796" />
         <entry key="app/src/main/res/layout-land/content_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_change_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_edit_note.xml" value="0.31237908534561787" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_notes_handler.xml" value="0.2565198488182663" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.15729483282674772" />
+        <entry key="app/src/main/res/layout/fragment_movie_search.xml" value="0.28076923076923077" />
+        <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.28076923076923077" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.15729483282674772" />
+        <entry key="app/src/main/res/layout/movie_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/user_ui.xml" value="0.375" />
         <entry key="app/src/main/res/layout/wordlist_item.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.28076923076923077" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.28076923076923077" />
       </map>
     </option>
   </component>

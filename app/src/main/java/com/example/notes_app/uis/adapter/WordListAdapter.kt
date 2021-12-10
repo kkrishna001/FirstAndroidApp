@@ -1,9 +1,8 @@
-package com.example.notes_app.UI.adapter
+package com.example.notes_app.uis.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -14,46 +13,49 @@ import com.example.notes_app.data.room.Notes
 import kotlin.collections.ArrayList
 
 
-
-class WordListAdapter(context: Context, wordList: ArrayList<Notes>, private var onNoteListener: OnNoteListener) :
+class WordListAdapter(wordList: ArrayList<Notes>, private var onNoteListener: OnNoteListener) :
     RecyclerView.Adapter<WordListAdapter.NotesViewHolder>() {
-    private val mNotesList: ArrayList<Notes> = wordList;
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
-    interface OnNoteListener{
+    private val mNotesList: ArrayList<Notes> = wordList;
+
+    interface OnNoteListener {
         fun onNoteClick(position: Int)
-        fun onDeleteClick(position:Int)
+        fun onDeleteClick(position: Int)
+
     }
+
     class NotesViewHolder(
         itemView: View,
         adapter: WordListAdapter,
         onNoteListener: OnNoteListener
-    ):
-        RecyclerView.ViewHolder(itemView){
-        val notesTitle:TextView = itemView.findViewById(R.id.title)
-        val notesDesc:TextView = itemView.findViewById(R.id.desc)
-        val notesDate:TextView = itemView.findViewById(R.id.dateofnote)
+    ) :
+        RecyclerView.ViewHolder(itemView) {
+        val notesTitle: TextView = itemView.findViewById(R.id.title)
+        val notesDesc: TextView = itemView.findViewById(R.id.desc)
+        val notesDate: TextView = itemView.findViewById(R.id.dateofnote)
         private val mAdapter: WordListAdapter
+
         init {
-            val card=itemView.findViewById<CardView>(R.id.cardView);
-            val delete_note=itemView.findViewById<Button>(R.id.delete_note)
+            val card = itemView.findViewById<CardView>(R.id.cardView);
+            val deleteNote = itemView.findViewById<Button>(R.id.delete_note)
             mAdapter = adapter
-//            val note=Notes();
-            delete_note.setOnClickListener{
+            deleteNote.setOnClickListener {
                 onNoteListener.onDeleteClick(layoutPosition)
             }
-            card.setOnClickListener{
+            card.setOnClickListener {
                 onNoteListener.onNoteClick(layoutPosition);
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         // Inflate an item view.
-        val mItemView: View = mInflater.inflate(
+        val mItemView: View = LayoutInflater.from(parent.context).inflate(
             R.layout.wordlist_item, parent, false
         )
-        return NotesViewHolder(mItemView,this,onNoteListener)
+        return NotesViewHolder(mItemView, this, onNoteListener)
     }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         // Retrieve the data for that position.
@@ -61,14 +63,15 @@ class WordListAdapter(context: Context, wordList: ArrayList<Notes>, private var 
         // Add the data to the view holder.
         holder.notesTitle.text = mCurrent.title;
         holder.notesDesc.text = mCurrent.desc;
-        holder.notesDate.text = mCurrent.time.toString();
+        holder.notesDate.text = mCurrent.time
     }
+
     override fun getItemCount(): Int {
         return mNotesList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(mNotesLists:List<Notes>) {
+    fun updateData(mNotesLists: List<Notes>) {
         mNotesList.clear()
         mNotesList.addAll(mNotesLists)
         notifyDataSetChanged()

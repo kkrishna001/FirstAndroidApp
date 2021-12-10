@@ -10,9 +10,9 @@ abstract class NoteDatabase : RoomDatabase() {
 
     abstract fun getNoteDao(): NotesDao
 
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE: NoteDatabase?=null
+        private var INSTANCE: NoteDatabase? = null
 
         fun getDatabase(context: Context): NoteDatabase {
 

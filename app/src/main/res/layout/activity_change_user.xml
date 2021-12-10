@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChangeUser"
+    tools:context=".uis.view.ChangeUser"
     android:background="#000000">
     <TextView
         android:id="@+id/titleofactivity"
@@ -82,7 +82,7 @@
             tools:layout_editor_absoluteY="356dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profilepicture"
+            android:id="@+id/profilePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

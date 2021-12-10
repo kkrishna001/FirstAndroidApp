@@ -35,7 +35,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/lightblue"
+        android:backgroundTint="@color/lightBlue"
         app:icon="@drawable/ic_add_for_edituser"
         app:iconTint="#0659E8"
         app:layout_constraintBottom_toBottomOf="parent"

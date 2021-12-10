@@ -20,4 +20,20 @@
     <string name="change_your_account_details">Change your account details</string>
     <string name="Changeusername">username</string>
     <string name="emailChange">email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_fragment_text">Movie Fragment</string>
+    <string name="movie_search">MOVIE SEARCH</string>
+    <string name="save_your_notes">SAVE YOUR NOTES</string>
+    <string name="genre">Genre:</string>
+    <string name="actors">Actors:</string>
+    <string name="director">Director:</string>
+    <string name="title_of_the_movie">Title of the movie</string>
+    <string name="released">Released</string>
+    <string name="imdbRating">imdbRating</string>
+    <string name="runtime">Runtime</string>
+    <string name="plot">Plot</string>
+    <string name="country">country</string>
+    <string name="poster">POSTER</string>
+    <string name="edit_your_note">EDIT YOUR NOTE</string>
 </resources>
