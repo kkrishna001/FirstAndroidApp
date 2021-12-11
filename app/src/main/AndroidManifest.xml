@@ -24,8 +24,7 @@
         <activity
             android:name=".uis.view.MovieDetail"
             android:exported="false"
-            android:label="MOVIE DETAIL"
-            />
+            android:label="MOVIE DETAIL" />
         <activity
             android:name=".uis.view.MainActivity"
             android:exported="true"

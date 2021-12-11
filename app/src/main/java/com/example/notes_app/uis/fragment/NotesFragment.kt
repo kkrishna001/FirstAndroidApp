@@ -2,7 +2,9 @@ package com.example.notes_app.uis.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,11 +22,11 @@ import com.example.notes_app.uis.adapter.WordListAdapter
 import com.example.notes_app.uis.view.ChangeUser
 import com.example.notes_app.uis.view.NotesHandler
 import com.example.notes_app.data.room.Notes
+import com.example.notes_app.util.SharedPreferenceUtil
 import com.example.notes_app.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlin.collections.ArrayList
-
 
 class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
 
@@ -54,6 +56,8 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
 
     private lateinit var noteVM: NoteViewModel
 
+    private lateinit var sharedPreferences: SharedPreferenceUtil
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,10 +75,15 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
         setupProfileFabButton()
         setupFabButton()
         setupEditUser()
+        setupSharedPrefs()
         onLoadData()
         setupRV()
         initViewModel()
         attachObserver()
+    }
+
+    private fun setupSharedPrefs() {
+        sharedPreferences = context?.let { SharedPreferenceUtil.getInstance(it) }!!
     }
 
     private fun setupFabButton() {
@@ -135,28 +144,14 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
         userEmail = view?.findViewById(R.id.email)!!
     }
 
-    /*
-        1.Create util package.
-        2.Create file SharedPreferenceUtil
-
-        object SharedPreferenceUtil {
-            fun getSharedPrefInstance() : SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-
-            fun SharedPreferenceUtil.getString(key: String, defaultValue: String?) : String? {
-                return getSharedPrefInstance().getString("NAME_KEY1",null)
-            }
-        }
-
-    */
     private fun onLoadData() {
 
-//        val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)//same for shared-prefs.
-//        val savedName: String? =
-//            sharedPreferences.getString(NAME_KEY, null)
-//        val savedEmail: String? =
-//            sharedPreferences.getString(NAME_KEY, null)//extract in constants
-//        userName.text = savedName
-//        userEmail.text = savedEmail
+        val savedName: String? =
+            sharedPreferences.getString(NAME_KEY)
+        val savedEmail: String? =
+            sharedPreferences.getString(EMAIL_KEY)
+        userName.text = savedName
+        userEmail.text = savedEmail
 
     }
 
@@ -166,19 +161,14 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
 
         if (requestCode == EDIT_USER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-//                val name: String? = data?.getStringExtra(NAME_KEY)
-//                val email: String? = data?.getStringExtra(EMAIL_KEY)
-//
-//                val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)//same for shared-prefs.
-//
-//                val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//                editor.apply {
-//                    putString(NAME_KEY, name)
-//                    putString(EMAIL_KEY, email)
-//                }.apply()
+                val name: String? = data?.getStringExtra(NAME_KEY)
+                val email: String? = data?.getStringExtra(EMAIL_KEY)
 
-//                userName.text = name
-//                userEmail.text = email
+                sharedPreferences.putString(NAME_KEY, name)
+                sharedPreferences.putString(EMAIL_KEY, email)
+
+                userName.text = name
+                userEmail.text = email
             }
         } else if (requestCode == ADD_NOTE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.notes_app.data.room.NoteDatabase
-import com.example.notes_app.NoteRepository
+import com.example.notes_app.data.NoteRepository
 import com.example.notes_app.data.room.Notes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
