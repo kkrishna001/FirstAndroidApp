@@ -1,10 +1,10 @@
-package com.example.firstAndroidApp.ui.view
+package com.example.firstAndroidApp.notesApp.ui.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.firstAndroidApp.data.room.Notes
+import com.example.firstAndroidApp.notesApp.data.room.Notes
 import com.example.firstAndroidApp.databinding.ActivityNotesHandlerBinding
 import java.text.SimpleDateFormat
 import java.util.*

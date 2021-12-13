@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.ui.view
+package com.example.firstAndroidApp.view
 
 
 import android.os.Bundle

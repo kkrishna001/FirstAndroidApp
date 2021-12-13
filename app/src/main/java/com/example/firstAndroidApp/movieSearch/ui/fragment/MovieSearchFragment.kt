@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.ui.fragment
+package com.example.firstAndroidApp.movieSearch.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstAndroidApp.R
-import com.example.firstAndroidApp.ui.adapter.MovieAdapter
-import com.example.firstAndroidApp.ui.view.MovieDetail
-import com.example.firstAndroidApp.data.MoviesAPI
-import com.example.firstAndroidApp.model.Movie
+import com.example.firstAndroidApp.movieSearch.ui.adapter.MovieAdapter
+import com.example.firstAndroidApp.movieSearch.ui.view.MovieDetail
+import com.example.firstAndroidApp.movieSearch.data.MoviesAPI
+import com.example.firstAndroidApp.movieSearch.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.ChangeUser"
+    tools:context=".notesApp.ui.view.ChangeUser"
     android:background="#000000">
     <TextView
         android:id="@+id/titleofactivity"

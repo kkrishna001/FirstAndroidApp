@@ -1,7 +1,7 @@
-package com.example.firstAndroidApp.data
+package com.example.firstAndroidApp.movieSearch.data
 
-import com.example.firstAndroidApp.model.MovieDetails
-import com.example.firstAndroidApp.model.MoviesResponse
+import com.example.firstAndroidApp.movieSearch.model.MovieDetails
+import com.example.firstAndroidApp.movieSearch.model.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

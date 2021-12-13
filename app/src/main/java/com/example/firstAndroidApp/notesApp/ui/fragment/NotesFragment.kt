@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.ui.fragment
+package com.example.firstAndroidApp.notesApp.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
@@ -14,15 +14,15 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.firstAndroidApp.ui.view.EditNote
+import com.example.firstAndroidApp.notesApp.ui.view.EditNote
 import com.example.firstAndroidApp.R
-import com.example.firstAndroidApp.ui.adapter.WordListAdapter
-import com.example.firstAndroidApp.ui.view.ChangeUser
-import com.example.firstAndroidApp.ui.view.NotesHandler
-import com.example.firstAndroidApp.data.room.Notes
+import com.example.firstAndroidApp.notesApp.ui.adapter.WordListAdapter
+import com.example.firstAndroidApp.notesApp.ui.view.ChangeUser
+import com.example.firstAndroidApp.notesApp.ui.view.NotesHandler
+import com.example.firstAndroidApp.notesApp.data.room.Notes
 import com.example.firstAndroidApp.databinding.FragmentNotesBinding
 import com.example.firstAndroidApp.util.SharedPreferenceUtil
-import com.example.firstAndroidApp.viewModel.NoteViewModel
+import com.example.firstAndroidApp.notesApp.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlin.collections.ArrayList

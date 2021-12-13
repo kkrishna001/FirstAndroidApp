@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.ui.adapter
+package com.example.firstAndroidApp.notesApp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.example.firstAndroidApp.R
-import com.example.firstAndroidApp.data.room.Notes
+import com.example.firstAndroidApp.notesApp.data.room.Notes
 import kotlin.collections.ArrayList
 
 

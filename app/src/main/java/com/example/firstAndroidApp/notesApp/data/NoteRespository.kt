@@ -1,8 +1,8 @@
-package com.example.firstAndroidApp.data
+package com.example.firstAndroidApp.notesApp.data
 
 import androidx.lifecycle.LiveData
-import com.example.firstAndroidApp.data.room.Notes
-import com.example.firstAndroidApp.data.room.NotesDao
+import com.example.firstAndroidApp.notesApp.data.room.Notes
+import com.example.firstAndroidApp.notesApp.data.room.NotesDao
 
 class NoteRepository(private val notesDao: NotesDao) {
 

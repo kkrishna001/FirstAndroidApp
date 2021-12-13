@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.model
+package com.example.firstAndroidApp.movieSearch.model
 
 data class MovieDetails(
     val Title: String,

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/notesFragment"
-        android:name="com.example.firstAndroidApp.ui.fragment.NotesFragment"
+        android:name="com.example.firstAndroidApp.notesApp.ui.fragment.NotesFragment"
         android:label="NOTES APP"
         tools:layout="@layout/fragment_notes" />
     <fragment
         android:id="@+id/movieSearchFragment"
-        android:name="com.example.firstAndroidApp.ui.fragment.MovieSearchFragment"
+        android:name="com.example.firstAndroidApp.movieSearch.ui.fragment.MovieSearchFragment"
         android:label="MOVIE CONTAINER"
         tools:layout="@layout/fragment_movie_search"
         />

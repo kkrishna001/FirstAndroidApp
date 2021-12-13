@@ -1,11 +1,11 @@
-package com.example.firstAndroidApp.ui.view
+package com.example.firstAndroidApp.movieSearch.ui.view
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.example.firstAndroidApp.data.MoviesAPI
+import com.example.firstAndroidApp.movieSearch.data.MoviesAPI
 import com.example.firstAndroidApp.databinding.ActivityMovieDetailBinding
 import com.example.firstAndroidApp.util.GlideUtil
 import kotlinx.coroutines.Dispatchers

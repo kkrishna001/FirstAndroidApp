@@ -14,20 +14,20 @@
         android:theme="@style/Theme.NOTES_APP"
         android:name="com.example.firstAndroidApp.util.ApplicationContextUtil">
         <activity
-            android:name="com.example.firstAndroidApp.ui.view.EditNote"
+            android:name="com.example.firstAndroidApp.notesApp.ui.view.EditNote"
             android:exported="false" />
         <activity
-            android:name="com.example.firstAndroidApp.ui.view.NotesHandler"
+            android:name="com.example.firstAndroidApp.notesApp.ui.view.NotesHandler"
             android:exported="false" />
         <activity
-            android:name="com.example.firstAndroidApp.ui.view.ChangeUser"
+            android:name="com.example.firstAndroidApp.notesApp.ui.view.ChangeUser"
             android:exported="false" />
         <activity
-            android:name="com.example.firstAndroidApp.ui.view.MovieDetail"
+            android:name="com.example.firstAndroidApp.movieSearch.ui.view.MovieDetail"
             android:exported="false"
             android:label="MOVIE DETAIL" />
         <activity
-            android:name="com.example.firstAndroidApp.ui.view.MainActivity"
+            android:name="com.example.firstAndroidApp.view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan|adjustResize">

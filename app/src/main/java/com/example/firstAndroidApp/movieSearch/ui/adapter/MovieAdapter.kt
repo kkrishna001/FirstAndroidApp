@@ -1,4 +1,4 @@
-package com.example.firstAndroidApp.ui.adapter
+package com.example.firstAndroidApp.movieSearch.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.example.firstAndroidApp.R
-import com.example.firstAndroidApp.model.Movie
+import com.example.firstAndroidApp.movieSearch.model.Movie
 import com.example.firstAndroidApp.util.GlideUtil
 import kotlin.collections.ArrayList
 

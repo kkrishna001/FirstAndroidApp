@@ -1,7 +1,8 @@
-package com.example.firstAndroidApp.data.room
+package com.example.firstAndroidApp.notesApp.data.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.firstAndroidApp.notesApp.data.room.Notes
 
 @Dao
 interface NotesDao {

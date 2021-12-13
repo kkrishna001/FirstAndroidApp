@@ -1,12 +1,12 @@
-package com.example.firstAndroidApp.viewModel
+package com.example.firstAndroidApp.notesApp.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.firstAndroidApp.data.room.NoteDatabase
-import com.example.firstAndroidApp.data.NoteRepository
-import com.example.firstAndroidApp.data.room.Notes
+import com.example.firstAndroidApp.notesApp.data.room.NoteDatabase
+import com.example.firstAndroidApp.notesApp.data.NoteRepository
+import com.example.firstAndroidApp.notesApp.data.room.Notes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
