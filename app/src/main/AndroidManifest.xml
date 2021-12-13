@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.notes_app">
+    package="com.example.firstAndroidApp">
 
     <uses-permission android:name="android.permission.INTERNET">
 
@@ -12,22 +12,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NOTES_APP"
-        android:name=".util.ApplicationContextUtil">
+        android:name="com.example.firstAndroidApp.util.ApplicationContextUtil">
         <activity
-            android:name=".ui.view.EditNote"
+            android:name="com.example.firstAndroidApp.ui.view.EditNote"
             android:exported="false" />
         <activity
-            android:name=".ui.view.NotesHandler"
+            android:name="com.example.firstAndroidApp.ui.view.NotesHandler"
             android:exported="false" />
         <activity
-            android:name=".ui.view.ChangeUser"
+            android:name="com.example.firstAndroidApp.ui.view.ChangeUser"
             android:exported="false" />
         <activity
-            android:name=".ui.view.MovieDetail"
+            android:name="com.example.firstAndroidApp.ui.view.MovieDetail"
             android:exported="false"
             android:label="MOVIE DETAIL" />
         <activity
-            android:name=".ui.view.MainActivity"
+            android:name="com.example.firstAndroidApp.ui.view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan|adjustResize">
