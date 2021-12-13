@@ -6,7 +6,7 @@ import android.app.Application
 import android.content.Context
 
 
-open class ApplicationContextUtil : Application() {
+class ApplicationContextUtil : Application() {
 
     companion object {
         @SuppressLint("StaticFieldLeak")

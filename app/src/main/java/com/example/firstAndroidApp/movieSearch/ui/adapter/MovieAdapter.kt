@@ -22,8 +22,6 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
 
     private val movieList: ArrayList<Movie> = wordList
 
-    private var glideUtil = GlideUtil()
-
     interface OnMovieListener {
         fun onMovieClick(imdbId: String)
 
@@ -63,7 +61,7 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
         val mCurrent = movieList[position]
         holder.movieTitle.text = mCurrent.Title
         holder.movieYear.text = mCurrent.Year
-        glideUtil.setImage(activity, movieList[position].Poster, holder.moviePoster)
+        GlideUtil.setImage(activity, movieList[position].Poster, holder.moviePoster)
     }
 
     override fun getItemCount(): Int {

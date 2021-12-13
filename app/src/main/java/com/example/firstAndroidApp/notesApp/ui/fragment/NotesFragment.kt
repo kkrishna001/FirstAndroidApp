@@ -85,7 +85,7 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
     }
 
     private fun setupSharedPrefs() {
-        sharedPreferences = SharedPreferenceUtil()
+        sharedPreferences = SharedPreferenceUtil
     }
 
     private fun setupFabButton() {

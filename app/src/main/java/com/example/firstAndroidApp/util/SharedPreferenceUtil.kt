@@ -4,11 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.firstAndroidApp.util.ApplicationContextUtil.Companion.context
 
-class SharedPreferenceUtil {
+object SharedPreferenceUtil {
 
-    companion object {
-        private const val SHARED_PREF = "sharedPrefs"
-    }
+    private const val SHARED_PREF = "sharedPrefs"
 
     private val sharedPreferences: SharedPreferences? =
         context?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)

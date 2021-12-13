@@ -2,40 +2,43 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.firstAndroidApp">
 
-    <uses-permission android:name="android.permission.INTERNET">
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    </uses-permission>
     <application
+        android:name=".util.ApplicationContextUtil"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NOTES_APP"
-        android:name="com.example.firstAndroidApp.util.ApplicationContextUtil">
+        android:theme="@style/Theme.NOTES_APP">
         <activity
-            android:name="com.example.firstAndroidApp.notesApp.ui.view.EditNote"
-            android:exported="false" />
-        <activity
-            android:name="com.example.firstAndroidApp.notesApp.ui.view.NotesHandler"
-            android:exported="false" />
-        <activity
-            android:name="com.example.firstAndroidApp.notesApp.ui.view.ChangeUser"
-            android:exported="false" />
-        <activity
-            android:name="com.example.firstAndroidApp.movieSearch.ui.view.MovieDetail"
-            android:exported="false"
-            android:label="MOVIE DETAIL" />
-        <activity
-            android:name="com.example.firstAndroidApp.view.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan|adjustResize">
+            android:name=".view.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".notesApp.ui.view.EditNote"
+            android:exported="false" />
+        <activity
+            android:name=".notesApp.ui.view.NotesHandler"
+            android:exported="false" />
+        <activity
+            android:name=".notesApp.ui.view.ChangeUser"
+            android:exported="false" />
+        <activity
+            android:name=".movieSearch.ui.view.MovieDetail"
+            android:exported="false"
+            android:label="MOVIE DETAIL" />
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
     </application>
 
