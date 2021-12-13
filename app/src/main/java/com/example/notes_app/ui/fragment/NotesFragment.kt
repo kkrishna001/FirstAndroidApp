@@ -31,12 +31,6 @@ import kotlin.collections.ArrayList
 
 class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
 
-
-    //fix the comments and all related to view model for api
-    //shared preferences (fix this using the context of application of app)
-    //Api is not working properly aas it is not rendering the view because of background
-
-
     companion object {
         private const val EDIT_USER_REQUEST_CODE: Int = 1
         private const val ADD_NOTE_REQUEST_CODE: Int = 2
