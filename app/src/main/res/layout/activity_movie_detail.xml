@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".uis.view.MovieDetail"
+    tools:context=".ui.view.MovieDetail"
     android:background="#0F183A">
 
     <TextView

@@ -11,22 +11,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NOTES_APP">
+        android:theme="@style/Theme.NOTES_APP"
+        android:name=".util.ApplicationContextUtil">
         <activity
-            android:name=".EditNote"
+            android:name=".ui.view.EditNote"
             android:exported="false" />
         <activity
-            android:name=".uis.view.NotesHandler"
+            android:name=".ui.view.NotesHandler"
             android:exported="false" />
         <activity
-            android:name=".uis.view.ChangeUser"
+            android:name=".ui.view.ChangeUser"
             android:exported="false" />
         <activity
-            android:name=".uis.view.MovieDetail"
+            android:name=".ui.view.MovieDetail"
             android:exported="false"
             android:label="MOVIE DETAIL" />
         <activity
-            android:name=".uis.view.MainActivity"
+            android:name=".ui.view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan|adjustResize">

@@ -2,30 +2,28 @@ package com.example.notes_app.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.notes_app.util.ApplicationContextUtil.Companion.context
 
-class SharedPreferenceUtil(context: Context) {
-
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+class SharedPreferenceUtil {
 
     companion object {
         private const val SHARED_PREF = "sharedPrefs"
-        private var sharedPreference: SharedPreferenceUtil? = null
-        fun getInstance(context: Context): SharedPreferenceUtil? {
-            if (sharedPreference == null) {
-                sharedPreference = SharedPreferenceUtil(context)
-            }
-            return sharedPreference
-        }
     }
 
+    private val sharedPreferences: SharedPreferences? =
+        context?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+
     fun putString(key: String?, value: String?) {
-        val prefsEditor = sharedPreferences.edit()
-        prefsEditor.putString(key, value)
-        prefsEditor.apply()
+        val prefsEditor = sharedPreferences?.edit()
+        prefsEditor?.putString(key, value)
+        prefsEditor?.apply()
     }
 
     fun getString(key: String?): String? {
-        return sharedPreferences.getString(key, "")
+        return if (sharedPreferences != null) {
+            sharedPreferences.getString(key, "")
+        } else {
+            ""
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.notes_app.uis.adapter
+package com.example.notes_app.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.notes_app.R
 import com.example.notes_app.model.Movie
+import com.example.notes_app.util.GlideUtil
 import kotlin.collections.ArrayList
 
 
@@ -22,6 +23,8 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
     private lateinit var activity: Context
 
     private val movieList: ArrayList<Movie> = wordList
+
+    private var glideUtil = GlideUtil()
 
     interface OnMovieListener {
         fun onMovieClick(imdbId: String)
@@ -62,8 +65,7 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
         val mCurrent = movieList[position]
         holder.movieTitle.text = mCurrent.Title
         holder.movieYear.text = mCurrent.Year
-        Glide.with(activity).load(mCurrent.Poster).diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.moviePoster)
+        glideUtil.setImage(activity, movieList[position].Poster, holder.moviePoster)
     }
 
     override fun getItemCount(): Int {
@@ -72,6 +74,8 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(movieLists: List<Movie>) {
+
+        println(movieLists)
         movieList.clear()
         movieList.addAll(movieLists)
         notifyDataSetChanged()

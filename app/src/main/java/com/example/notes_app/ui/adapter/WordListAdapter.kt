@@ -1,4 +1,4 @@
-package com.example.notes_app.uis.adapter
+package com.example.notes_app.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

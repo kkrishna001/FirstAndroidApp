@@ -1,11 +1,10 @@
-package com.example.notes_app
+package com.example.notes_app.ui.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import com.example.notes_app.data.room.Notes
+import com.example.notes_app.databinding.ActivityEditNoteBinding
 
 class EditNote : AppCompatActivity() {
 
@@ -14,9 +13,12 @@ class EditNote : AppCompatActivity() {
         private const val EDITPOS_KEY = "EDITPOS_KEY"
     }
 
+    private lateinit var viewBinding: ActivityEditNoteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_note)
+
+        viewBinding = ActivityEditNoteBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
 
         setup()
     }
@@ -26,18 +28,15 @@ class EditNote : AppCompatActivity() {
         val position = intent.getIntExtra(EDITPOS_KEY, 0);
         val note = intent.getSerializableExtra(EDITNOTE_KEY) as Notes;
 
-        val title = findViewById<EditText>(R.id.notesTitle2)
-        val description = findViewById<EditText>(R.id.notesDes2)
 
-        title.setText(note.title)
-        description.setText(note.desc)
-        val bttn = findViewById<Button>(R.id.submitNotesButton2)
+        viewBinding.notesTitle2.setText(note.title)
+        viewBinding.notesDes2.setText(note.desc)
 
-        bttn.setOnClickListener {
+        viewBinding.submitNotesButton2.setOnClickListener {
             val resultsIntent2 = Intent()
 
-            note.title = title.text.toString();
-            note.desc = description.text.toString();
+            note.title = viewBinding.notesTitle2.text.toString();
+            note.desc = viewBinding.notesDes2.text.toString();
             resultsIntent2.putExtra(EDITNOTE_KEY, note)
             resultsIntent2.putExtra(EDITPOS_KEY, position)
             setResult(RESULT_OK, resultsIntent2)

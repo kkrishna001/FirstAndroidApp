@@ -1,4 +1,4 @@
-package com.example.notes_app.uis.fragment
+package com.example.notes_app.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,16 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes_app.R
-import com.example.notes_app.uis.adapter.MovieAdapter
-import com.example.notes_app.uis.view.MovieDetail
-import com.example.notes_app.data.API
+import com.example.notes_app.ui.adapter.MovieAdapter
+import com.example.notes_app.ui.view.MovieDetail
+import com.example.notes_app.data.MoviesAPI
 import com.example.notes_app.model.Movie
-import com.example.notes_app.model.MoviesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -35,7 +31,7 @@ class MovieSearchFragment : Fragment(), MovieAdapter.OnMovieListener {
         private const val IMDB_ID = "imdbID"
     }
 
-    private lateinit var retrofitBuilder: API
+    private lateinit var retrofitBuilder: MoviesAPI
 
     private val moviesList = ArrayList<Movie>()
 
@@ -47,7 +43,6 @@ class MovieSearchFragment : Fragment(), MovieAdapter.OnMovieListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_movie_search, container, false)
     }
 
@@ -89,30 +84,37 @@ class MovieSearchFragment : Fragment(), MovieAdapter.OnMovieListener {
         retrofitBuilder =
             Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
                 BASE_URL
-            ).build().create(API::class.java)
+            ).build().create(MoviesAPI::class.java)
     }
 
     private fun getData(search: String) {
+
         lifecycleScope.launch(Dispatchers.IO) {
             val retrofitData = retrofitBuilder.getMovies(search, API_KEY)
-            retrofitData.enqueue(object : Callback<MoviesResponse?> {
 
-                override fun onResponse(
-                    call: Call<MoviesResponse?>,
-                    response: Response<MoviesResponse?>
+            if (retrofitData.isSuccessful) {
+
+                if (retrofitData.body() != null && retrofitData.body()!!.Response.equals(
+                        "true",
+                        ignoreCase = true
+                    )
                 ) {
-                    val result = response.body()
-                    if (result != null && result.Response.equals("true", ignoreCase = true)) {
-                        mAdapter.updateData(result.Search)
-                    }
-                }
-
-                override fun onFailure(call: Call<MoviesResponse?>, t: Throwable) {
-                    Log.d(API_LOG_TAG, "onFailure" + t.message)
+                    updateDataRV(retrofitData.body()!!.Search)
+                } else {
+                    Log.d(API_LOG_TAG, "onFailure data is null")
                     mAdapter.updateData(emptyList())
                 }
-            })
+
+            } else {
+                Log.d(API_LOG_TAG, "onFailure ${retrofitData.errorBody().toString()}")
+                updateDataRV(emptyList())
+            }
+
         }
+    }
+
+    private fun updateDataRV(movieList:List<Movie>){
+        mAdapter.updateData(movieList)
     }
 
     override fun onMovieClick(imdbId: String) {
@@ -120,4 +122,5 @@ class MovieSearchFragment : Fragment(), MovieAdapter.OnMovieListener {
         intent.putExtra(IMDB_ID, imdbId)
         startActivity(intent)
     }
+
 }

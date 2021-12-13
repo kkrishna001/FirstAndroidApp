@@ -1,10 +1,8 @@
-package com.example.notes_app.uis.fragment
+package com.example.notes_app.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,12 +14,15 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notes_app.EditNote
+import com.example.notes_app.ui.view.EditNote
 import com.example.notes_app.R
-import com.example.notes_app.uis.adapter.WordListAdapter
-import com.example.notes_app.uis.view.ChangeUser
-import com.example.notes_app.uis.view.NotesHandler
+import com.example.notes_app.ui.adapter.WordListAdapter
+import com.example.notes_app.ui.view.ChangeUser
+import com.example.notes_app.ui.view.NotesHandler
 import com.example.notes_app.data.room.Notes
+import com.example.notes_app.databinding.ContentMainBinding
+import com.example.notes_app.databinding.FragmentNotesBinding
+import com.example.notes_app.databinding.UserUiBinding
 import com.example.notes_app.util.SharedPreferenceUtil
 import com.example.notes_app.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +30,12 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlin.collections.ArrayList
 
 class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
+
+
+    //fix the comments and all related to view model for api
+    //shared preferences (fix this using the context of application of app)
+    //Api is not working properly aas it is not rendering the view because of background
+
 
     companion object {
         private const val EDIT_USER_REQUEST_CODE: Int = 1
@@ -46,6 +53,8 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
 
     private var mNotesList = ArrayList<Notes>()
 
+    private lateinit var viewBinding: FragmentNotesBinding
+
     private lateinit var mRecyclerView: RecyclerView
 
     private lateinit var mAdapter: WordListAdapter
@@ -61,10 +70,11 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        return inflater.inflate(R.layout.fragment_notes, container, false)
+        viewBinding = FragmentNotesBinding.inflate(layoutInflater)
 
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,12 +93,11 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
     }
 
     private fun setupSharedPrefs() {
-        sharedPreferences = context?.let { SharedPreferenceUtil.getInstance(it) }!!
+        sharedPreferences = SharedPreferenceUtil()
     }
 
     private fun setupFabButton() {
-        val fab = view?.findViewById<FloatingActionButton>(R.id.fab)
-        fab?.setOnClickListener {
+        viewBinding.fab.setOnClickListener {
 
             val intent = Intent(context, NotesHandler::class.java)
             startActivityForResult(intent, ADD_NOTE_REQUEST_CODE)
@@ -96,6 +105,7 @@ class NotesFragment : Fragment(), WordListAdapter.OnNoteListener {
     }
 
     private fun setupProfileFabButton() {
+
         val profileFab =
             view?.findViewById<FloatingActionButton>(R.id.changeProfileImage)
         profileFab?.setOnClickListener {
