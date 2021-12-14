@@ -24,7 +24,6 @@ class MovieRepository(private val moviesAPI: MoviesAPI) {
         val retrofitData = moviesAPI.getMovies(movieName)
 
         if (retrofitData.isSuccessful) {
-
             if (retrofitData.body() != null && retrofitData.body()!!.Response.equals(
                     "true",
                     ignoreCase = true
