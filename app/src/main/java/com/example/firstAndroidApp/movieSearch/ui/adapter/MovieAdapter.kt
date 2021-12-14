@@ -24,7 +24,6 @@ class MovieAdapter(wordList: ArrayList<Movie>, private var onNoteListener: OnMov
 
     interface OnMovieListener {
         fun onMovieClick(imdbId: String)
-
     }
 
     inner class MovieViewHolder(

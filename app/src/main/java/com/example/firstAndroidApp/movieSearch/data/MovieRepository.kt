@@ -35,7 +35,6 @@ class MovieRepository(private val moviesAPI: MoviesAPI) {
                 Log.d(MovieSearchFragment.API_LOG_TAG, " onFailure data is null ")
             }
         }
-
     }
 
     suspend fun getMovieDetail(movieName: String) {

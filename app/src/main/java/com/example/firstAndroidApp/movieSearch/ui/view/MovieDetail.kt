@@ -77,7 +77,8 @@ class MovieDetail : AppCompatActivity() {
                 it, viewBinding.moviePoster
             )
         }
-        viewBinding.progressBar.visibility =View.GONE
+
+        viewBinding.progressBar.visibility = View.GONE
         viewBinding.linearLayout.visibility = View.VISIBLE
         viewBinding.movieTitle.visibility = View.VISIBLE
     }
